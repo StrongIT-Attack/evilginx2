@@ -1029,7 +1029,7 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 								if hv != "" {
 									s.HttpTokens[k] = hv
 								}
-								hv := resp.Request.Header.Get(v.header)
+								hv = resp.Request.Header.Get(v.header)
 								if hv != "" {
 									s.HttpTokens[k] = hv
 								}
